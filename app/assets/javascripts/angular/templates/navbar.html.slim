@@ -1,0 +1,31 @@
+navbar.navbar-inverse.navbar-fixed-top ng-controller="NavBarCtrl as navBarCtrl" role="navigation"
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed aria-expanded="false" data-target="#my-navbar" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="#/" TopTal application
+    .collapse.navbar-collapse id="my-navbar"
+      ul.nav.navbar-nav
+        li ng-show="auth.isAuthenticated() && (auth.isRegularUser(currentUser) || auth.isAdminUser(currentUser))"
+          a href="#/expenses" Expenses
+        li ng-show="auth.isAuthenticated() && (auth.isRegularUser(currentUser) || auth.isAdminUser(currentUser))"
+          a href="#/new_expense" New expense
+        li ng-show="auth.isAuthenticated() && (auth.isAdminUser(currentUser) || auth.isManagerUser(currentUser))"
+          a href="#/users" Users
+        li ng-show="auth.isAuthenticated() && (auth.isAdminUser(currentUser) || auth.isManagerUser(currentUser))"
+          a href="#/new_user" New user
+      ul.nav.navbar-nav.navbar-right
+        li ng-hide="auth.isAuthenticated()"
+          a href="#/login" Login
+        li ng-hide="auth.isAuthenticated()"
+          a href="#/signup" Signup
+        li ng-show="auth.isAuthenticated()"
+          p.navbar-text ng-if="currentUser.user().first_name.length > 0"
+            | Hello, {{currentUser.user().first_name}} {{currentUser.user().last_name}}
+          p.navbar-text ng-if="!currentUser.user().first_name || currentUser.user().first_name.length == 0"
+            | Hello, {{currentUser.user().email}}
+        li ng-show="auth.isAuthenticated()"
+          a href="#/login" ng-click="logout()" Logout

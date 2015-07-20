@@ -1,0 +1,47 @@
+ng-include src="'navbar.html'"
+
+.col-md-4.col-md-offset-4
+
+  br
+  br
+  br
+
+  h2.center ng-if="!user.id" Add new user
+  h2.center ng-if="user.id" Edit user
+  
+  br
+
+  .alert.alert-danger ng-show='userErrorMsg' {{userErrorMsg}}
+
+  form.form-horizontal novalidate="" accept-charset="utf-8" name="userForm" ng-init="loadUser()"
+    .form-group.form-group-lg
+
+      input#user_first_name.form-control name="first_name" ng-model="user.firstName" placeholder="First name" type="text"
+
+      br
+
+      input#user_last_name.form-control name="last_name" ng-model="user.lastName" placeholder="Last name" type="text"
+
+      br
+
+      input#user_email.form-control name="email" ng-model="user.email" placeholder="Email" ng-required="true" type="email"
+      .text-danger ng-show="errors.email" {{ errors.email }}
+
+      br
+
+      input#user_password.form-control name="password" ng-model="user.password" placeholder="Password" ng-required="true" type="password"
+      .text-danger ng-show="errors.password" {{ errors.password }}
+
+      br
+
+      button.btn.btn-lg.btn-primary.btn-block ng-click="submit(user)" Submit
+
+      br
+      
+      a.btn.btn-lg.btn-default.btn-block ng-if="user.id" href="#/new_user"
+        | Add new user
+
+      br
+
+      a.btn.btn-lg.btn-default.btn-block href="#/users"
+        | Users

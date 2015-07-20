@@ -1,0 +1,44 @@
+ng-include src="'navbar.html'"
+
+.col-md-4.col-md-offset-4
+  
+  br
+  br
+  br
+  
+  .alert.alert-danger ng-show='errorMsg' {{errorMsg}}
+
+  form.form-horizontal accept-charset="utf-8" name="signupForm"
+    .form-group.form-group-lg
+        h2.center
+          | Sign up
+
+        br
+
+        input#first_name.form-control placeholder="First name" ng-model="user.first_name" type="text"
+
+        br
+
+        input#last_name.form-control placeholder="Last name" ng-model="user.last_name" type="text"
+
+        br
+
+        input#email.form-control placeholder="Email" ng-model="user.email" ng-required="true" type="email"
+        .text-danger ng-show="errors.email" {{ errors.email }}
+
+        br
+
+        input#password.form-control placeholder="Password" ng-model="user.password" ng-required="true" type="password"
+        .text-danger ng-show="errors.password" {{ errors.password }}
+
+        br
+        button.btn.btn-lg.btn-primary.btn-block ng-click="signup(user)" ng-disabled="signupForm.$invalid"
+          | Signup
+
+
+        br
+        br
+        br
+
+        a.btn.btn-lg.btn-default.btn-block href="#/login" ng-hide="currentUser"
+          | Login

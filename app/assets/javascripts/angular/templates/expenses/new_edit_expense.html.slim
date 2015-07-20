@@ -1,0 +1,52 @@
+ng-include src="'navbar.html'"
+
+.col-md-4.col-md-offset-4
+
+  br
+  br
+  br
+
+  h2.center ng-if="!expense.id" Add new expense
+  h2.center ng-if="expense.id" Edit expense
+  
+  br
+
+  .alert.alert-danger ng-show='expenseErrorMsg' {{expenseErrorMsg}}
+
+  form.form-horizontal novalidate="" accept-charset="utf-8" name="expenseForm" ng-init="loadExpense()"
+    .form-group.form-group-lg
+
+      input#expense_amount.form-control name="amount" ng-model="expense.amount" placeholder="Amount" required="" type="text"
+      .text-danger ng-show="errors.amount" {{ errors.amount }}
+
+      br
+
+      input#expense_for_day.form-control name="for_day" datepicker-popup="dd-MMMM-yyyy" ng-click="openDatepickerForDay($event)" is-open="mydpForDay.opened" ng-model="expense.forDay" placeholder="Select day" required="required" type="text"
+      .text-danger ng-show="errors.for_timeday" {{ errors.for_timeday }}
+
+      br
+
+      input#expense_for_time.form-control name="for_time" ng-click="openTimepickerForTime($event)" is-open="mytpForTime.opened" ng-model="expense.forTime" show-meridian="false" sy-timepicker-popup="HH:mm" placeholder="Select time"
+
+      br
+
+      textarea#expense_description.form-control name="description" ng-model="expense.description" placeholder="Description" rows="3" type="text"
+      .text-danger ng-show="errors.description" {{ errors.description }}
+    
+      br
+
+      textarea#expense_comment.form-control name="comment" ng-model="expense.comment" placeholder="Comment" rows="3" type="text"
+    
+      br
+
+      button.btn.btn-lg.btn-primary.btn-block ng-click="submit(expense)" Submit
+
+      br
+      
+      a.btn.btn-lg.btn-default.btn-block ng-if="expense.id" href="#/new_expense"
+        | Add new expense
+
+      br
+
+      a.btn.btn-lg.btn-default.btn-block href="#/expenses"
+        | Expenses

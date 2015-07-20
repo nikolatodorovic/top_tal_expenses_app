@@ -1,0 +1,99 @@
+ng-include src="'navbar.html'"
+
+.col-md-10.col-md-offset-1
+
+  br
+  br
+  br
+
+  h2.center Expenses tracker
+  
+  br
+
+  .alert.alert-danger ng-show='expenseErrorMsg' {{expenseErrorMsg}}
+
+  .row
+    .col-md-3.col-md-offset-1
+
+      form.form-horizontal novalidate="" accept-charset="utf-8" method="get" name="dateFilters"
+        .form-group
+          label for="filterFromDate" From date:
+          input#filter_from_date.form-control placeholder="From date" datepicker-popup="dd-MMMM-yyyy" ng-click="openDatepickerFilterFrom($event)" is-open="mydpFilterFrom.opened" ng-model="filterDate.from" type="text"
+
+        .form-group
+          label for="filterToDate" To date:
+          input#filter_to_date.form-control placeholder="To date" datepicker-popup="dd-MMMM-yyyy" ng-click="openDatepickerFilterTo($event)" is-open="mydpFilterTo.opened" ng-model="filterDate.to" type="text"
+
+      .text-danger ng-show="filterDate.from > filterDate.to" Date from must be lower then date to
+
+      br
+
+    .col-md-3.col-md-offset-1
+
+      form.form-horizontal novalidate="" accept-charset="utf-8" method="get" name="timeFilters"
+        .form-group
+          label for="filterFromTime" From time:
+          input#filter_from_time.form-control placeholder="From time" ng-click="openTimepickerFilterFrom($event)" is-open="mytpFilterFrom.opened" show-meridian="false" sy-timepicker-popup="HH:mm" ng-model="filterTime.from"
+
+        .form-group
+          label for="filterToTime" To time:
+          input#filter_to_time.form-control placeholder="To time" ng-click="openTimepickerFilterTo($event)" is-open="mytpFilterTo.opened" show-meridian="false" sy-timepicker-popup="HH:mm" ng-model="filterTime.to"
+
+      .text-danger ng-show="badTime(filterDate.from, filterDate.to, filterTime.from, filterTime.to)" Time from must be lower then time to
+
+      br
+
+  .row
+    .col-md-1.col-md-offset-1
+      form.form-horizontal
+        .form-group
+          button.btn.btn-md.btn-primary.btn-block.glyphicon.glyphicon-search ng-click="filterDateTime()" ng-disabled="filterDate.from > filterDate.to || badTime(filterDate.from, filterDate.to, filterTime.from, filterTime.to)"
+
+    .col-md-1.col-md-offset-1
+      form.form-horizontal
+        .form-group
+          button.btn.btn-md.btn-secondary.btn-block.glyphicon.glyphicon-refresh ng-click="filterDateTimeReset()"
+
+    .col-md-1.col-md-offset-1
+      form.form-horizontal
+        .form-group
+          button.btn.btn-md.btn-warning.btn-block.glyphicon.glyphicon-print ng-click="generateReport()"
+
+    .col-md-1.col-md-offset-1
+      form.form-horizontal
+        .form-group
+          a.btn.btn-md.btn-success.btn-block.glyphicon.glyphicon-plus href="#/new_expense"
+
+  .row
+    .col-md-2.col-md-offset-10
+      form.form-horizontal accept-charset="utf-8"
+        .form-group
+          input#expense_search.form-control ng-model="search" placeholder="Search" type="text"
+
+  table.table ng-init="loadExpenses()"
+    thead
+      tr
+        th width="15%" ng-click="sort('forTimeday')"
+          | Date
+          span.glyphicon.sort-icon ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}" ng-show="sortKey=='forTimeday'"
+        th width="15%" Time
+        th width="20%" ng-click="sort('amount')"
+          | Amount
+          span.glyphicon.sort-icon ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}" ng-show="sortKey=='amount'"
+        th width="20%" Description
+        th width="20%" Comment
+        th width="5%"
+        th width="5%"
+    tbody
+      tr dir-paginate="expense in expenses | orderBy:sortKey:reverse | filter:search | itemsPerPage:10"
+        td ng-bind="expense.forTimeday | dateFilter"
+        td ng-bind="expense.forTimeday | timeFilter"
+        td ng-bind="expense.amount"
+        td ng-bind="expense.description | limitTo:35"
+        td ng-bind="expense.comment | limitTo:35"
+        td
+          button.btn.btn-warning.btn-xs.glyphicon.glyphicon-edit ng-click="edit(expense)"
+        td
+          button.btn.btn-danger.btn-xs.glyphicon.glyphicon-remove ng-click="delete(expense)"
+
+  dir-pagination-controls boundary-links="true" direction-links="true" max-size="5"

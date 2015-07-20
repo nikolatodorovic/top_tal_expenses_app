@@ -1,0 +1,27 @@
+.col-md-10.col-md-offset-1
+  .row ng-repeat="expense in expenses"
+
+    h4 {{ expense.start | date:'EEEE yyyy-MM-dd' }} till {{ expense.end | date:'EEEE yyyy-MM-dd' }}
+
+    table.table
+      thead
+        tr
+          th width="15%" Date
+          th width="15%" Time
+          th width="20%" Amount
+          th width="25%" Description
+          th width="25%" Comment
+      tbody
+        tr ng-repeat="item in expense.expense | orderBy:date:true"
+          td ng-bind="item.forTimeday | dateFilter"
+          td ng-bind="item.forTimeday | timeFilter"
+          td ng-bind="item.amount"
+          td ng-bind="item.description | limitTo:35"
+          td ng-bind="item.comment | limitTo:35"
+
+    h4 Total expense: {{ expense.total }}
+    h4 Per day: {{ expense.total / 7 | number : 3 }}
+
+    br
+    hr
+    br

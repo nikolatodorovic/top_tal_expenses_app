@@ -1,0 +1,33 @@
+ng-include src="'navbar.html'"
+
+.col-md-10.col-md-offset-1
+
+  br
+  br
+  br
+
+  h2.center Users
+  
+  br
+
+  table.table ng-init="loadUsers()"
+    thead
+      tr
+        th width="25%" First name
+        th width="25%" Last name
+        th width="25%" Email
+        th width="15%" Role
+        th width="5%"
+        th width="5%"
+    tbody
+      tr ng-repeat="user in users"
+        td ng-bind="user.firstName"
+        td ng-bind="user.lastName"
+        td ng-bind="user.email"
+        td ng-if="user.idRole == 1" Regular
+        td ng-if="user.idRole == 2" Admin
+        td ng-if="user.idRole == 3" Manager
+        td
+          button.btn.btn-warning.btn-xs.glyphicon.glyphicon-edit ng-click="edit(user)"
+        td
+          button.btn.btn-danger.btn-xs.glyphicon.glyphicon-remove ng-click="delete(user)"

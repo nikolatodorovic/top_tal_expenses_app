@@ -1,0 +1,1 @@
+json.extract! @expense, :id, :amount, :for_timeday, :description, :comment
