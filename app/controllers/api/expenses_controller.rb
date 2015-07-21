@@ -62,7 +62,7 @@ module Api
         my_json[key] = analytics
       end
 
-      puts JSON.pretty_generate my_json.values
+      #puts JSON.pretty_generate my_json.values
 
       render json: my_json.values
     end
@@ -98,7 +98,7 @@ module Api
         scope = scope.greaterThanTime(Time.parse(from)) if from.present?
         scope = scope.lessThanTime(Time.parse(to)) if to.present?
 
-        scope.order(for_timeday: order)
+        scope.includes(:user).order(for_timeday: order)
       end
 
   end

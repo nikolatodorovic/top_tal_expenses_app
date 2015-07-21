@@ -76,12 +76,13 @@ ng-include src="'navbar.html'"
         th width="15%" ng-click="sort('forTimeday')"
           | Date
           span.glyphicon.sort-icon ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}" ng-show="sortKey=='forTimeday'"
-        th width="15%" Time
-        th width="20%" ng-click="sort('amount')"
+        th width="10%" Time
+        th width="10%" ng-click="sort('amount')"
           | Amount
           span.glyphicon.sort-icon ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}" ng-show="sortKey=='amount'"
         th width="20%" Description
         th width="20%" Comment
+        th ng-show="auth.isAdminUser(currentUser)" width="15%" User name
         th width="5%"
         th width="5%"
     tbody
@@ -91,6 +92,7 @@ ng-include src="'navbar.html'"
         td ng-bind="expense.amount"
         td ng-bind="expense.description | limitTo:35"
         td ng-bind="expense.comment | limitTo:35"
+        td ng-show="auth.isAdminUser(currentUser)" {{ expense.user.firstName }} {{ expense.user.lastName }} 
         td
           button.btn.btn-warning.btn-xs.glyphicon.glyphicon-edit ng-click="edit(expense)"
         td

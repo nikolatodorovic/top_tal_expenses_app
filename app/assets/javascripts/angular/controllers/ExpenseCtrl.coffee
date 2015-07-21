@@ -1,5 +1,6 @@
-@topTalApp.controller 'ExpenseCtrl', ['$scope', '$location', '$route', '$routeParams', 'Expense', 'CurrentUser', ($scope, $location, $route, $routeParams, Expense, CurrentUser) ->
+@topTalApp.controller 'ExpenseCtrl', ['$scope', '$location', '$route', '$routeParams', 'Expense', 'Auth', 'CurrentUser', ($scope, $location, $route, $routeParams, Expense, Auth, CurrentUser) ->
   
+  $scope.auth = Auth
   $scope.currentUser = CurrentUser
   
   $scope.expenses = []
