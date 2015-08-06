@@ -17,15 +17,15 @@ class User < ActiveRecord::Base
     MANAGER: 3
   }
 
-  def isRegular
+  def is_regular
     self.id_role == ROLES[:REGULAR]
   end
 
-  def isAdmin
+  def is_admin
     self.id_role == ROLES[:ADMIN]
   end
   
-  def isManager
+  def is_manager
     self.id_role == ROLES[:MANAGER]
   end
 

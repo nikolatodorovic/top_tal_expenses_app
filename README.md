@@ -1,5 +1,5 @@
 # TopTal expenses application
-A simple expenses tracker web application with API built in Rails and app built in AngularJS
+A simple expenses tracker web application with API built in Rails and app built in AngularJS. Complete tutorial is on this link: http://www.nikolatodorovic.com/nikolas-blog/rails-4-angularjs-json-web-token-authentication
 
 ## Requirements
 

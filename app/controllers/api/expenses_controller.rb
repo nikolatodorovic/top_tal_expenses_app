@@ -70,7 +70,7 @@ module Api
     private
 
       def is_authorized?
-        if @current_user.isManager
+        if @current_user.is_manager
           render json: { error: "Doesn't have permissions" }, status: :forbidden
           return
         end
@@ -78,7 +78,7 @@ module Api
 
       def set_expense
         @expense = Expense.find(params[:id])
-        if @expense.user != @current_user && @current_user.isRegular
+        if @expense.user != @current_user && @current_user.is_regular
           render json: { error: "Doesn't have permissions" }, status: :forbidden
           return
         end
@@ -93,8 +93,8 @@ module Api
       end
 
       def findByDateFromAndTo(from, to, order)
-        scope = @current_user.expenses if @current_user.isRegular
-        scope = Expense.all if @current_user.isAdmin
+        scope = @current_user.expenses if @current_user.is_regular
+        scope = Expense.all if @current_user.is_admin
         scope = scope.greaterThanTime(Time.parse(from)) if from.present?
         scope = scope.lessThanTime(Time.parse(to)) if to.present?
 

@@ -41,7 +41,7 @@ module Api
     private
 
       def is_authorized?
-        if @current_user.isRegular
+        if @current_user.is_regular
           render json: { error: "Doesn't have permissions" }, status: :forbidden
           return
         end
